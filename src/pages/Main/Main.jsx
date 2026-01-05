@@ -24,7 +24,7 @@ const Main = () => {
       }
     };
     fetchNews(currentPage);
-  }, [currentPage]);
+  }, [currentPage, pageSize]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
