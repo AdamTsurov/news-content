@@ -5,18 +5,28 @@ import { getNews } from '../../api/apiNews';
 import NewsList from '../../componets/NewsList/NewsList';
 import Skeleton from '../../componets/Skeleton/Skeleton';
 import Pagination from '../../componets/Pagination/Pagination';
+import { NEWS_CATEGORIES } from '../../constants/categories';
+import Categories from '../../componets/Categories/Categories';
 
 const Main = () => {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const totalPages = 10;
   const pageSize = 10;
+
+  const categories = ['all', ...NEWS_CATEGORIES.map((cat) => cat.id)];
 
   useEffect(() => {
     const fetchNews = async (currentPage) => {
       try {
-        const response = await getNews(currentPage, pageSize);
+        setIsLoading(true);
+        const response = await getNews({
+          page: currentPage,
+          pagesize: pageSize,
+          category: selectedCategory === 'all' ? null : selectedCategory,
+        });
         setNews(response.articles);
         setIsLoading(false);
       } catch (error) {
@@ -24,7 +34,7 @@ const Main = () => {
       }
     };
     fetchNews(currentPage);
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, selectedCategory]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -44,6 +54,11 @@ const Main = () => {
 
   return (
     <main className={styles.main}>
+      <Categories
+        categories={categories}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       {news.length > 0 && !isLoading ? (
         <NewsBanner item={news[0]} />
       ) : (
