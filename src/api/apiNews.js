@@ -6,7 +6,7 @@ const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 export const getNews = async ({ page = 1, pagesize = 10, keywords, category }) => {
   const endpoint = category ? 'top-headlines' : 'everything';
 
-  const params = { page, pagesize, apiKey: API_KEY };
+  const params = { page, pagesize, apiKey: API_KEY, q: keywords };
 
   if (category) {
     params.category = category;
