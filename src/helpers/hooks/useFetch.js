@@ -22,6 +22,5 @@ export const useFetch = (fetchFuction, params) => {
     })();
   }, [fetchFuction, stringParams]);
 
-
   return { data, isLoading, error };
 };
