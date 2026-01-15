@@ -8,7 +8,7 @@ import NewsList from '../NewsList/NewsList';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import styles from './styles.module.css';
 
-const NewsByFilter = () => {
+const NewsByFilters = () => {
   const { filters, changeFilter } = useFilters({
     page: 1,
     pageSize: PAGE_SIZE,
@@ -57,4 +57,4 @@ const NewsByFilter = () => {
   );
 };
 
-export default NewsByFilter;
+export default NewsByFilters;
