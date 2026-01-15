@@ -1,6 +1,7 @@
 import { NEWS_CATEGORIES } from '../../constants/categories';
 import Categories from '../Categories/Categories';
 import Search from '../Search/Search';
+import Slider from '../Slider/Slider';
 import styles from './styles.module.css';
 
 const NewsFilters = ({ filters, changeFilter }) => {
@@ -9,11 +10,13 @@ const NewsFilters = ({ filters, changeFilter }) => {
   return (
     <div className={styles.filters}>
       {categories ? (
-        <Categories
-          categories={categories}
-          selectedCategory={filters.category}
-          setSelectedCategory={(category) => changeFilter('category', category)}
-        />
+        <Slider>
+          <Categories
+            categories={categories}
+            selectedCategory={filters.category}
+            setSelectedCategory={(category) => changeFilter('category', category)}
+          />
+        </Slider>
       ) : null}
 
       <Search
