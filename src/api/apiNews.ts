@@ -1,14 +1,16 @@
 import axios from 'axios';
+import type { IFilters, NewsApiResponse, ParamsType } from '../interfaces';
 
 const BASE_URL = import.meta.env.VITE_NEWS_BASE_API_URL;
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
-export const getFilteredNews = async ({ page = 1, pageSize = 10, category, keywords }) => {
-  const hasKeywords = Boolean(keywords?.trim());
+export const getFilteredNews = async (filters?: IFilters): Promise<NewsApiResponse> => {
+  const { page = 1, pageSize = 10, keywords = '', category = null } = filters || {};
+
+  const hasKeywords = Boolean(keywords.trim());
   const hasCategory = Boolean(category);
 
-  const params = {
-    apiKey: API_KEY,
+  const params: ParamsType = {
     page,
     pageSize,
   };
@@ -34,21 +36,26 @@ export const getFilteredNews = async ({ page = 1, pageSize = 10, category, keywo
   }
 
   try {
-    const response = await axios.get(`${BASE_URL}top-headlines`, {
-      params,
+    const response = await axios.get<NewsApiResponse>(`${BASE_URL}top-headlines`, {
+      params: { apiKey: API_KEY, ...params },
     });
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
+    return {
+      status: 'error',
+      totalResults: 0,
+      articles: [],
+    };
   }
 };
 
-export const getLatestNews = async () => {
+export const getLatestNews = async (): Promise<NewsApiResponse> => {
   const oneMonthAgo = new Date();
   oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
   try {
-    const response = await axios.get(`${BASE_URL}everything`, {
+    const response = await axios.get<NewsApiResponse>(`${BASE_URL}everything`, {
       params: {
         apiKey: API_KEY,
         sources: 'bbc-news',
@@ -56,8 +63,13 @@ export const getLatestNews = async () => {
         pageSize: 50,
       },
     });
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
+    return {
+      status: 'error',
+      totalResults: 0,
+      articles: [],
+    };
   }
 };

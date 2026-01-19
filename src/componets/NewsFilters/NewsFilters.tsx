@@ -1,11 +1,17 @@
 import { NEWS_CATEGORIES } from '../../constants/categories';
+import type { CategoriesType, IFilters } from '../../interfaces';
 import Categories from '../Categories/Categories';
 import Search from '../Search/Search';
 import Slider from '../Slider/Slider';
 import styles from './styles.module.css';
 
-const NewsFilters = ({ filters, changeFilter }) => {
-  const categories = [...NEWS_CATEGORIES.map((cat) => cat.id)];
+interface Props {
+  filters: IFilters;
+  changeFilter: (key: string, value: string | number | null) => void;
+}
+
+const NewsFilters = ({ filters, changeFilter }: Props) => {
+  const categories: CategoriesType[] = [...NEWS_CATEGORIES.map((cat) => cat.id)];
 
   return (
     <div className={styles.filters}>
@@ -21,7 +27,7 @@ const NewsFilters = ({ filters, changeFilter }) => {
 
       <Search
         keywords={filters.keywords}
-        setKeywords={(keywords) => changeFilter('keywords', keywords)}
+        setKeywords={(keywords: string) => changeFilter('keywords', keywords)}
       />
     </div>
   );

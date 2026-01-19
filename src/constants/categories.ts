@@ -1,4 +1,6 @@
-export const NEWS_CATEGORIES = [
+import type { CategoriesType } from '../interfaces';
+
+export const NEWS_CATEGORIES: { id: CategoriesType; label: string }[] = [
   { id: 'business', label: 'Business' },
   { id: 'entertainment', label: 'Entertainment' },
   { id: 'general', label: 'General' },
