@@ -7,7 +7,7 @@ interface Props {
   direction?: DirectionType;
 }
 
-const NewsSkeleton = ({ count = 1, type = 'banner', direction = 'column' }: Props) => {
+const Skeleton = ({ count = 1, type = 'banner', direction = 'column' }: Props) => {
   return (
     <>
       {count > 1 ? (
@@ -23,4 +23,4 @@ const NewsSkeleton = ({ count = 1, type = 'banner', direction = 'column' }: Prop
   );
 };
 
-export default NewsSkeleton;
+export default Skeleton;
