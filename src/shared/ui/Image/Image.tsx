@@ -4,7 +4,7 @@ interface Props {
   image: string;
 }
 
-const NewsImage  = ({ image }: Props) => {
+const Image  = ({ image }: Props) => {
   return (
     <div className={styles.wrapper}>
       {image ? <img src={image} alt="news" className={styles.image} /> : null}
@@ -12,4 +12,4 @@ const NewsImage  = ({ image }: Props) => {
   );
 };
 
-export default NewsImage ;
+export default Image ;

@@ -1,24 +1,20 @@
 import type { DirectionType, SkeletonType } from '@/shared/config/news';
-import NewsSkeleton from '@/shared/ui/NewsSkeleton/NewsSkeleton';
-
+import Skeleton from '@/shared/ui/Skeleton/Skeleton';
 interface Props {
   isLoading: boolean;
+  direction?: DirectionType;
+  type?: SkeletonType;
 }
 
-const withSkeleton = <P extends object>(
-  Component: React.ComponentType<P>,
-  type?: SkeletonType,
-  count?: number,
-  direction?: DirectionType,
-) => {
+const withSkeleton = <P extends object>(Component: React.ComponentType<P>, count?: number) => {
   return function WithSkeleton(props: Props & P) {
-    const { isLoading, ...restProps } = props;
+    const { isLoading, type, direction = 'column', ...restProps } = props;
 
     if (isLoading) {
-      return <NewsSkeleton type={type} count={count} direction={direction} />;
+      return <Skeleton type={type} count={count} direction={direction} />;
     }
 
-    return <Component {...(restProps as P)} />;
+    return <Component type={type} {...(restProps as P)} />;
   };
 };
 
