@@ -5,16 +5,14 @@ import Slider from '@/features/slider/ui/Slider/Slider';
 import { setFilters } from '@/entities/news/model/articlesSlice';
 import styles from './styles.module.css';
 import { useTheme } from '@/app/providers/ThemeProvider';
-import { NEWS_CATEGORIES, type CategoriesType, type IFilters } from '@/shared/config/news';
+import { type CategoriesType, type IFilters } from '@/shared/config/news';
 
 interface Props {
   filters: IFilters;
+  categories: CategoriesType[];
 }
 
-const NewsFilters = ({ filters }: Props) => {
-  const categories: CategoriesType[] = [
-    ...NEWS_CATEGORIES.map((cat: { id: CategoriesType }) => cat.id),
-  ];
+const NewsFilters = ({ filters, categories }: Props) => {
   const { isDark } = useTheme();
   const dispatch = useAppDispatch();
 
@@ -33,7 +31,7 @@ const NewsFilters = ({ filters }: Props) => {
       ) : null}
 
       <Search
-        keywords={filters.keywords}
+        keywords={filters.keywords || ''}
         setKeywords={(keywords: string) =>
           dispatch(setFilters({ key: 'keywords', value: keywords }))
         }
