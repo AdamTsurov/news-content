@@ -1,11 +1,12 @@
-import type { CategoriesType } from "@/shared/config/news";
-
+import type { CategoriesType } from '@/shared/config/news';
 
 export interface INews {
   author: string;
   category: CategoriesType[];
   description: string;
-  id: string;
+  source: {
+    id: string;
+  };
   urlToImage: string;
   language: string;
   publishedAt: string;
