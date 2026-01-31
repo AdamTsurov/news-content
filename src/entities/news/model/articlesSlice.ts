@@ -7,10 +7,12 @@ import type { IFilters } from '@/shared/config/news';
 interface State {
   articles: INews[];
   filters: IFilters;
+  currentArcticles: INews | null;
 }
 
 const initialState: State = {
   articles: [],
+  currentArcticles: null,
   filters: { page: 1, pageSize: PAGE_SIZE, category: null, keywords: '' },
 };
 
@@ -21,6 +23,9 @@ export const articlesSlice = createSlice({
     setArticles: (state, action: PayloadAction<INews[]>) => {
       state.articles = action.payload;
     },
+    setCurrentArticles: (state, action: PayloadAction<INews | null>) => {
+      state.currentArcticles = action.payload;
+    },
     setFilters: (state, action: PayloadAction<{ key: string; value: string | null | number }>) => {
       const { key, value } = action.payload;
       state.filters = { ...state.filters, [key]: value };
@@ -28,6 +33,6 @@ export const articlesSlice = createSlice({
   },
 });
 
-export const { setArticles, setFilters } = articlesSlice.actions;
+export const { setArticles, setFilters, setCurrentArticles } = articlesSlice.actions;
 
 export default articlesSlice.reducer;
